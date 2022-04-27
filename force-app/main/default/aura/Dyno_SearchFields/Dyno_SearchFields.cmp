@@ -1,0 +1,57 @@
+<aura:component controller="DynoSearch" implements="flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="searchComplete" type="c:Dyno_SearchComplete"/>
+
+    <aura:attribute name="fieldSet" type="string" default="" access="public" />
+    <aura:attribute name="viewSet" type="string" default="" access="public" />
+    <aura:attribute name="objectType" type="string" default="" access="public" />
+    <aura:attribute name="instaSearch" type="boolean" default="false" access="public" />
+    
+    <!--This is the return data for a search-->
+    <aura:attribute name="viewData" type="Object[]" access="public" />
+    
+    <aura:attribute name="error" type="string" access="private" />
+    <aura:attribute name="filterFieldSet" type="Object[]" access="private" />
+
+    <aura:attribute name="sortOrder" type="String" default="" />
+    <aura:attribute name="sortDirection" type="String" default="" access="private" />
+
+    <!-- Field set Filter -->
+    <div class="slds-text-heading_small">Search</div>
+    <aura:if isTrue="{!not(empty(v.error))}">
+        <div class="error">
+            <ui:message title="Error" severity="error" closable="false">
+                {!v.error}
+            </ui:message>
+        </div>
+        <aura:set attribute="else">
+            <aura:iteration items="{!v.filterFieldSet}" var="field">
+                <aura:if isTrue="{!field.DisplayType == 'range'}">
+                    <div class="slds-grid slds-wrap slds-p-top_medium">
+                        <lightning:input class="slds-size_2-of-5" type="number" label="{!field.Name + ' Min'}" name="Min" value="{!field.filterValueMin}" onchange="{!c.instaSearch}" />
+                        <div class="slds-size_1-of-5 slds-align_absolute-center">to</div>
+                        <lightning:input class="slds-size_2-of-5" type="number" label="{!field.Name + ' Max'}" name="Max" value="{!field.filterValueMax}" onchange="{!c.instaSearch}" />
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!field.DisplayType == 'picklist'}">
+                    <lightning:select class="slds-p-top_medium" name="{!field.APIName}" label="{!field.Name}" value="{!field.filterValue}" onchange="{!c.instaSearch}">
+                        <option value="" text="-Any-"></option>
+                        <aura:iteration items="{!field.lstPickListValues}" var="value">
+                            <option value="{!value}" text="{!value}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                </aura:if>
+                <aura:if isTrue="{!field.DisplayType == 'checkbox'}">
+                    <ui:inputCheckbox class="slds-p-top_medium" name="{!field.APIName}" label="{!field.Name}" value="{!field.filterValue}" click="{!c.instaSearch}" />
+                </aura:if>
+                <aura:if isTrue="{!field.DisplayType == 'string'}">
+                    <lightning:input class="slds-p-top_medium" type="text" label="{!field.Name}" name="{!field.APIName}" value="{!field.filterValue}" onchange="{!c.instaSearch}" />
+                </aura:if>
+            </aura:iteration>
+            <div class="slds-clearfix slds-p-top_large">
+                <lightning:button class="slds-float_right" variant="brand" label="Go!" onclick="{!c.search}" />
+                <!-- <lightning:button class="slds-float_left" variant="base" label="Clear Filters" onclick="{!c.clearFilters}" /> -->
+            </div>
+        </aura:set>
+    </aura:if>
+</aura:component>

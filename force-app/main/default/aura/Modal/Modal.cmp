@@ -1,0 +1,30 @@
+<aura:component>
+    <aura:method name="show" description="Shows the modal">
+        <aura:attribute name="callback" type="Object" />
+    </aura:method>
+    
+    <aura:attribute name="showModal" type="Boolean" access="private" default="false" />
+    <aura:attribute name="header" type="String" access="public" />
+    <aura:attribute name="callback" type="Object" access="private" />
+    
+    <div style="height: 640px;">
+        <aura:if isTrue="{!v.showModal}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" iconName="utility:close" variant="bare" onclick="{! c.handleClose }" alternativeText="Close" />
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.header}</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        {!v.body}
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{! c.handleCancel }">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick="{! c.handleSave }">Save</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </div>
+</aura:component>

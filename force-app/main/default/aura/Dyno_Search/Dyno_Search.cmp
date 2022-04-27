@@ -1,0 +1,29 @@
+<aura:component controller="DynoSearch" implements="flexipage:availableForRecordHome,force:hasRecordId">
+
+    <aura:attribute name="objectType" type="string" default="" access="public" required="true" />
+    <aura:attribute name="viewSet" type="string" access="public" required="true"/>
+	<aura:attribute name="fieldSet" type="String" access="public" required="true" />
+	<aura:attribute name="instaSearch" type="boolean" default="false" access="public" />
+	
+	<aura:attribute name="viewData" type="Product2[]" />
+	<aura:attribute name="sortOrder" type="String" default="Crt_Weight__c" access="private" />
+	<aura:attribute name="sortDirection" type="String" default="ASC" access="private" />
+
+	<div class="slds-grid">
+		<!-- Field set Filter -->
+		<div class="slds-size_1-of-4 slds-border_right slds-p-right_large filter-div">
+			<c:Dyno_SearchFields objectType="Custom_Object__c" instaSearch="{!v.instaSearch}" fieldSet="{!v.fieldSet}" viewSet="{!v.viewSet}" viewData="{!v.viewData}" />
+		</div>
+
+		<!-- Table with data -->
+		<div class="slds-size_2-of-4 slds-m-left_large">
+			<div class="slds-text-heading_small">Items</div>
+			<aura:if isTrue="{!v.viewData.length == 0}">
+				<div class="slds-text-color_weak slds-m-top_medium">Please search for items on the left.</div>
+			</aura:if>
+			<c:Dyno_List showSelectBoxes="false" fieldSet="test" objectType="Custom_Object__c" viewData="{!v.viewData}" />
+
+		</div>
+		{!v.body}
+	</div>
+</aura:component>

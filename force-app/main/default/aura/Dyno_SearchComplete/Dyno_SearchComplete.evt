@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="A search by the Dyno Component has been completed">
+    <aura:attribute name="data" type="sObject[]"/>
+    <aura:attribute name="objectType" type="String"/>
+</aura:event>

@@ -1,0 +1,25 @@
+<aura:component>
+    <aura:attribute name="filter" type="String" access="public" />
+    <aura:attribute name="filterType" type="String" default="" access="public" />
+    <aura:attribute name="options" type="List" default="[
+    {'label': '-No Filter-', 'value': ''},
+    {'label': 'Equals', 'value': 'equals'},
+    {'label': 'Contains', 'value': 'contains'},
+    {'label': 'Starts With', 'value': 'starts'},
+    {'label': 'Ends With', 'value': 'ends'},
+    {'label': 'Less Than', 'value': 'less'},
+    {'label': 'Greater Than', 'value': 'greater'},
+    {'label': 'Is Blank', 'value': 'blank'},
+    {'label': 'Is Not Blank', 'value': 'notblank'},
+    ]" />
+
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+            <lightning:combobox label="Filter By" value="{!v.filterType}" placeholder="Select Filter" options="{! v.options }" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+            <lightning:input label="Enter filter value" value="{!v.filter}" />
+        </div>
+    </div>
+</aura:component>

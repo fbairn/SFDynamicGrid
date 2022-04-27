@@ -1,0 +1,6 @@
+<design:component >
+	<design:attribute name="objectType" label="Object Type" default="" description="The API name for the object you are searching." />
+    <design:attribute name="fieldSet" label="Search Fieldset" default="" description="Fieldset that contain fields to show in search criteria." />
+    <design:attribute name="viewSet" label="View Fieldset" default="" description="The fields in this fieldset will be returned as the results of a search." />
+    <design:attribute name="instaSearch" label="Instant Search" default="False" description="If this is set to TRUE the search will be performed on field change (instant search), otherwise the search is not done until the Go button is clicked." />
+</design:component>

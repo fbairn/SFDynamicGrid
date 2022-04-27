@@ -1,0 +1,4 @@
+<design:component >
+	<design:attribute name="objectType" label="Object Type" default="" description="The API name for the object you are displaying." />
+    <design:attribute name="fieldSet" label="View Fieldset" default="" description="Fieldset that contain fields to show in list." />
+</design:component>

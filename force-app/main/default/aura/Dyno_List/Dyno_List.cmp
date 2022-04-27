@@ -1,0 +1,42 @@
+<aura:component controller="DynoSearch" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.viewColumns}" action="{!c.changeColumns}"/>
+    
+    <aura:attribute name="fieldSet" type="string" default="" access="public" required="true" />
+    <aura:attribute name="objectType" type="string" default="" access="public" required="true" />
+    <aura:attribute name="viewData" type="sObject[]" access="public"/>
+    <aura:attribute name="showSelectBoxes" type="Boolean" default="false" access="public" />
+    
+    <aura:attribute name="viewColumns" type="DynoSearch.OrganizedField[]" access="private"/>
+    <aura:attribute name="selectedRows" type="Map" default="{}" access="private" />
+    <aura:attribute name="removedRows" type="Map" default="{}" access="private" />
+    
+
+    <!-- Table with data -->
+    <!-- Create column headers -->
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-m-top_large">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <aura:if isTrue="{!v.showSelectBoxes}">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Checkbox">
+                        </div>
+                    </th>
+                </aura:if>
+                <aura:iteration items="{!v.viewColumns}" var="column">
+                    <th scope="col">
+                        <div class="slds-truncate" title="{!column.Name}">
+                            <a href="" data-field="{!column.APIName}" onclick="{!c.sort}">
+								{!column.Name}
+							</a>
+                        </div>
+                    </th>
+                </aura:iteration>
+            </tr>
+        </thead>
+        <!-- Below this tbody is where the rows will be dynamically created -->
+        <tbody aura:id="dynamic-table"></tbody>
+
+    </table>
+    {!v.body}
+</aura:component>

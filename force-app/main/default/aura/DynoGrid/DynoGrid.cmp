@@ -1,0 +1,36 @@
+<aura:component controller="DynoGridController" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="childAPIName" type="String" access="public" />
+    <aura:attribute name="parentField" type="String" access="public" />
+    <aura:attribute name="fieldSetAPI" type="String" access="public" />
+
+    <aura:attribute name="rawData" type="Object" access="private" />
+    <aura:attribute name="displayData" type="Object" access="private" />
+    <aura:attribute name="columns" type="List" access="private" />
+    <aura:attribute name="errors" type="Object" default="[]" access="private" />
+    <aura:attribute name="draftValues" type="Object" default="[]" access="private" />
+    <aura:attribute name="sortedBy" type="String" access="private" />
+    <aura:attribute name="sortedDirection" type="String" access="private" />
+    <aura:attribute name="activeFilter" type="Object" access="private" />
+
+    <lightning:notificationsLibrary aura:id="notifLib" />
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    
+
+    <!-- the container element determine the height of the datatable -->
+    <div style="height: 300px">
+        <div class="slds-grid slds-grid_align-end">
+            <div class="slds-col">
+                <lightning:buttonIcon iconName="utility:add" size="large" onclick="{! c.handleAdd }" alternativeText="Add Row" />
+            </div>
+        </div>
+
+        <lightning:datatable columns="{! v.columns }" hideCheckboxColumn="true" data="{! v.displayData }" keyField="Id" errors="{! v.errors }" draftValues="{! v.draftValues }" onsave="{! c.handleSaveEdition }" onsort="{!c.updateColumnSorting}" sortedBy="{!v.sortedBy}"
+            sortedDirection="{!v.sortedDirection}" onheaderaction="{! c.handleHeaderAction }" />
+
+
+        <c:Modal aura:id="filtermodal">
+            <c:FieldFilter aura:id="fieldFilter" />
+        </c:Modal>
+    </div>
+</aura:component>

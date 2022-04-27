@@ -1,0 +1,5 @@
+<design:component label="Editable Related List">
+    <design:attribute name="childAPIName" label="Child Object API Name" description="API Name for the child object to display" required="true"/>
+    <design:attribute name="parentField" label="Parent field name on child" description="API Name for the field that looks up to the parent" required="true"/>
+    <design:attribute name="fieldSetAPI" label="Field Set API Name" description="API Name for the field set" required="true"/>
+</design:component>
